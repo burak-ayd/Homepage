@@ -1,9 +1,11 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./assets/index.css";
 import Home from "./pages/home";
+import { Provider } from "react-redux";
+import store from "./stores";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
+    <Provider store={store}>
         <Home />
-    </React.StrictMode>
+    </Provider>
 );
