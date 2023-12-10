@@ -84,8 +84,8 @@ export default function Weather() {
     }
 
     useEffect(() => {
-        // getGeoLocation(); // Bu satırı isteğe bağlı olarak kullanabilirsiniz
-        // getWeather();
+        getGeoLocation(); // Bu satırı isteğe bağlı olarak kullanabilirsiniz
+        getWeather();
     }, []);
 
     return (
