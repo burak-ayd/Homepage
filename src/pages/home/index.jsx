@@ -2,9 +2,13 @@ import Header from "../../components/header";
 import { useEffect } from "react";
 import useColorScheme from "~/hooks/use-color-scheme";
 import { useTheme } from "~/stores/app/hooks";
+import { useModal } from "~/stores/modal/hooks";
+import Modal from "~/modal";
 export default function Home() {
     const theme = useTheme();
     const { colorScheme } = useColorScheme();
+
+    const modal = useModal();
 
     useEffect(() => {
         if (theme === "default") {
@@ -14,7 +18,8 @@ export default function Home() {
         }
     }, [theme, colorScheme]);
     return (
-        <div >
+        <div>
+            {modal && <Modal />}
             <Header />
         </div>
     );
