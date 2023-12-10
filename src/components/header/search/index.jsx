@@ -4,7 +4,9 @@ import { useState } from "react";
 
 export default function Search() {
     const [searchContent, setSearchContent] = useState("");
-    const onChange = ({ target }) => setSearchContent(target.value);
+    const onChange = ({ target }) => {
+        setSearchContent(target.value);
+    };
     return (
         <div className="relative flex max-w-[600px] w-full items-center justify-center p-0">
             {/* <input
@@ -26,6 +28,10 @@ export default function Search() {
                 size="sm"
                 color={searchContent ? "gray" : "blue-gray"}
                 className="!absolute right-1 top-1 rounded justify-center"
+                onClick={() => {
+                    (window.location.href = `https://www.google.com/search?q=${searchContent}`),
+                        "_blank";
+                }}
             >
                 <i className="text-base font-bold">
                     <GoSearch />
