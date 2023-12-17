@@ -6,5 +6,5 @@ export default function Content() {
 
     const currentContent = contents.find((m) => m.name === page);
 
-    return <div>{currentContent && <currentContent.companent />}</div>;
+    return <>{currentContent && <currentContent.companent />}</>;
 }

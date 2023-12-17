@@ -4,9 +4,9 @@ import Sidebar from "./items/sidebar";
 
 export default function SettingsModal() {
     return (
-        <div className="w-[600px] text-white">
+        <div className="modal-content text-white h-[calc(100%-64px)] w-full ">
             <Header />
-            <main className="flex">
+            <main className="flex h-full">
                 <Sidebar />
                 <div className="p-4 w-full">
                     <Content />

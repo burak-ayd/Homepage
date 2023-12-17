@@ -5,6 +5,7 @@ const initialState = {
     sidebarVisiblity: false,
     language: "tr",
     settingPage: "general",
+    searchEngine: localStorage.getItem("searchEngine") || { value: "Google" },
 };
 
 const app = createSlice({
@@ -25,6 +26,13 @@ const app = createSlice({
         _setSettingPage(state, action) {
             state.settingPage = action.payload;
         },
+        _setSearchEngine(state, action) {
+            state.searchEngine = JSON.stringify(action.payload);
+            localStorage.setItem(
+                "searchEngine",
+                JSON.stringify(action.payload)
+            );
+        },
     },
 });
 
@@ -33,5 +41,6 @@ export const {
     _setLanguage,
     _setSidebarVisibility,
     _setSettingPage,
+    _setSearchEngine,
 } = app.actions;
 export default app.reducer;
