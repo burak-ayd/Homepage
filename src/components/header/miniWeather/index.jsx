@@ -8,39 +8,50 @@ import tr from "dayjs/locale/tr";
 
 export default function Weather() {
     const [fetching, setFetching] = useState(false);
+    const [ApiUrl, setApiUrl] = useState("");
 
     dayjs.extend(customParseFormat, tr);
 
-    const City = useCity();
-    const Units = useUnits();
-    const Lang = useLang();
-    const getWeatherData = useWeather();
+    const City1 = useCity();
+    const Units1 = useUnits();
+    const Lang1 = useLang();
+    const getWeatherData1 = useWeather();
 
-    var Lon = 0;
-    var Lat = 0;
+    const [getWeatherData, setWeatherData] = useState(getWeatherData1);
+    const [City, setCity] = useState(City1);
+    const [Units, setUnits] = useState(Units1);
+    const [Lang, setLang] = useState(Lang1);
+
+    // var Lon = 0;
+    // var Lat = 0;
 
     const ApiKEY = import.meta.env.VITE_WEATHER_API_KEY;
     // 5 günlük hava durumu
-    const ApiUrlCast = `https://api.openweathermap.org/data/2.5/forecast?lat=${Lat}&lon=${Lon}&exclude=current,hourly,minutely,alerts&units=metric&appid=${ApiKEY}`;
+    // const ApiUrlCast = `https://api.openweathermap.org/data/2.5/forecast?lat=${Lat}&lon=${Lon}&exclude=current,hourly,minutely,alerts&units=metric&appid=${ApiKEY}`;
 
-    // Şu anki hava durumu
-    const ApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${City}&appid=${ApiKEY}&units=${Units}&lang=${Lang}`;
-
-    const getGeoLocation = async () => {
-        await axios
-            .get(
-                `http://api.openweathermap.org/geo/1.0/direct?q=${City}&limit=5&appid=${ApiKEY}`
-            )
-            .then((res) => {
-                Lon = res.data[0].lon;
-                Lat = res.data[0].lat;
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
+    // const getGeoLocation = async () => {
+    //     await axios
+    //         .get(
+    //             `http://api.openweathermap.org/geo/1.0/direct?q=${City}&limit=5&appid=${ApiKEY}`
+    //         )
+    //         .then((res) => {
+    //             Lon = res.data[0].lon;
+    //             Lat = res.data[0].lat;
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // };
 
     useEffect(() => {
+        setApiUrl(
+            `https://api.openweathermap.org/data/2.5/weather?q=${City}&appid=${ApiKEY}&units=${Units}&lang=${Lang}`
+        );
+        setCity(City1);
+        setUnits(Units1);
+        setLang(Lang1);
+        setWeatherData(getWeatherData1);
+        console.log("ApiUrl", ApiUrl);
         const getWeatherMinute = async () => {
             // Hedef tarih formatını belirt
             const format = "DD.MM.YYYY HH:mm:ss";
@@ -51,7 +62,8 @@ export default function Weather() {
             // console.log("targetDateObject", targetDateObject);
             // Tarih analiz edilemezse veya hedef tarih invalid bir tarihse, kullanıcıya bir hata mesajı göster
             if (!targetDateObject.isValid()) {
-                console.error("Geçersiz tarih formatı");
+                setFetching(true);
+                console.error("Geçersiz tarih formatı", targetDateObject);
                 return;
             }
             // Farkı hesapla
@@ -99,17 +111,38 @@ export default function Weather() {
             // getWeather();
             if (fetching) {
                 getWeather();
-                // console.log("getWeather");
+                console.log("getWeather");
                 setFetching(false);
             }
             getWeatherMinute();
         };
+        // Yalnızca City, Lang veya Units değiştiğinde ve fetching true olduğunda çalışır
+        if (City !== City1 || Lang !== Lang1 || Units !== Units1) {
+            console.log("asdasdasd");
+            setCity(City1);
+            setUnits(Units1);
+            setLang(Lang1);
+            setWeatherData(getWeatherData1);
+            setFetching(true); // fetching'i true yaparak yeni veriyi çekeceğimizi belirtiyoruz
+        }
         // Her dakika hesaplamayı tekrarla
         const intervalId = setInterval(deneme, 1000);
 
         // Temizlik fonksiyonu: Komponent kaldırıldığında interval'i temizle
         return () => clearInterval(intervalId);
-    }, [fetching, getWeatherData, ApiUrl]);
+    }, [
+        ApiKEY,
+        ApiUrl,
+        City,
+        Units,
+        Lang,
+        fetching,
+        getWeatherData.date,
+        City1,
+        Lang1,
+        Units1,
+        getWeatherData1,
+    ]);
 
     return (
         <>
