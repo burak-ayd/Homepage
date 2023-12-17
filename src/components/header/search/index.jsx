@@ -1,8 +1,23 @@
 import { Input, Button } from "@material-tailwind/react";
 import { GoSearch } from "react-icons/go";
 import { useState } from "react";
+import { useSearchEngine } from "~/stores/app/hooks";
 
 export default function Search() {
+    const getSearchEngine = useSearchEngine();
+
+    var engine;
+    if (localStorage.getItem("searchEngine") === null) {
+        engine = {
+            id: 4,
+            name: "google",
+            value: "Google",
+            url: "https://www.google.com/search?q=",
+        };
+    } else {
+        engine = JSON.parse(getSearchEngine);
+    }
+
     const [searchContent, setSearchContent] = useState("");
     const onChange = ({ target }) => {
         setSearchContent(target.value);
@@ -17,8 +32,8 @@ export default function Search() {
             <Input
                 type="text"
                 label="Ara"
-                value={searchContent}
                 onChange={onChange}
+                value={searchContent}
                 className="pr-16"
                 containerProps={{
                     className: "min-w-0",
@@ -29,7 +44,7 @@ export default function Search() {
                 color={searchContent ? "gray" : "blue-gray"}
                 className="!absolute right-1 top-1 rounded justify-center"
                 onClick={() => {
-                    (window.location.href = `https://www.google.com/search?q=${searchContent}`),
+                    (window.location.href = `${engine.url}${searchContent}`),
                         "_blank";
                 }}
             >

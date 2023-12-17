@@ -31,24 +31,24 @@ const BookmarkModal = ({ isOpen, onClose, onAddBookmark }) => {
                     URL:
                     <input
                         type="text"
-                        value={url}
                         onChange={(e) => setUrl(e.target.value)}
+                        value={url}
                     />
                 </label>
                 <label>
                     Name:
                     <input
                         type="text"
-                        value={name}
                         onChange={(e) => setName(e.target.value)}
+                        value={name}
                     />
                 </label>
                 <label>
                     Icon:
                     <input
                         type="text"
-                        value={icon}
                         onChange={(e) => setIcon(e.target.value)}
+                        value={icon}
                     />
                 </label>
                 <button onClick={handleAddBookmark}>Add Bookmark</button>

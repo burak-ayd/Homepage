@@ -4,6 +4,7 @@ const initialState = {
     city: localStorage.getItem("WeatherCity") || "Ankara",
     units: localStorage.getItem("WeatherUnits") || "metric",
     lang: localStorage.getItem("WeatherLang") || "tr",
+    forecast: JSON.parse(localStorage.getItem("WeatherForecast")) || "false",
     weather: JSON.parse(localStorage.getItem("Weather")) || {},
 };
 
@@ -23,6 +24,10 @@ const weather = createSlice({
             state.lang = action.payload;
             localStorage.setItem("WeatherLang", action.payload);
         },
+        _setForecast(state, action) {
+            state.forecast = action.payload;
+            localStorage.setItem("WeatherForecast", action.payload);
+        },
         _setWeather(state, action) {
             state.weather = action.payload;
             localStorage.setItem("Weather", JSON.stringify(action.payload));
@@ -30,5 +35,6 @@ const weather = createSlice({
     },
 });
 
-export const { _setCity, _setUnits, _setLang, _setWeather } = weather.actions;
+export const { _setCity, _setUnits, _setLang, _setWeather, _setForecast } =
+    weather.actions;
 export default weather.reducer;
