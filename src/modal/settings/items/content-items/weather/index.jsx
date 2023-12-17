@@ -92,7 +92,14 @@ export default function WeatherContent() {
                             size="lg"
                             onChange={({ target }) => {
                                 setCityName(target.value);
-                                setCity(target.value);
+                            }}
+                            onBlur={() => {
+                                setCity(cityName);
+                            }}
+                            onKeyDown={({ key }) => {
+                                if (key === "Enter") {
+                                    setCity(cityName);
+                                }
                             }}
                             className="pr-16 w-60 text-white"
                             containerProps={{
