@@ -7,6 +7,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import tr from "dayjs/locale/tr";
 
 export default function Weather() {
+    const ApiKEY = import.meta.env.VITE_WEATHER_API_KEY;
     const [fetching, setFetching] = useState(false);
     const [ApiUrl, setApiUrl] = useState("");
 
@@ -25,7 +26,6 @@ export default function Weather() {
     // var Lon = 0;
     // var Lat = 0;
 
-    const ApiKEY = import.meta.env.VITE_WEATHER_API_KEY;
     // 5 günlük hava durumu
     // const ApiUrlCast = `https://api.openweathermap.org/data/2.5/forecast?lat=${Lat}&lon=${Lon}&exclude=current,hourly,minutely,alerts&units=metric&appid=${ApiKEY}`;
 
@@ -62,8 +62,11 @@ export default function Weather() {
             // console.log("targetDateObject", targetDateObject);
             // Tarih analiz edilemezse veya hedef tarih invalid bir tarihse, kullanıcıya bir hata mesajı göster
             if (!targetDateObject.isValid()) {
-                setFetching(true);
                 console.error("Geçersiz tarih formatı", targetDateObject);
+                if (localStorage.getItem("Weather") === null) {
+                    setFetching(true);
+                }
+
                 return;
             }
             // Farkı hesapla
@@ -110,11 +113,11 @@ export default function Weather() {
             // console.log("weather");
             // getWeather();
             if (fetching) {
-                getWeather();
+                await getWeather();
                 console.log("getWeather");
                 setFetching(false);
             }
-            getWeatherMinute();
+            await getWeatherMinute();
         };
         // Yalnızca City, Lang veya Units değiştiğinde ve fetching true olduğunda çalışır
         if (City !== City1 || Lang !== Lang1 || Units !== Units1) {
