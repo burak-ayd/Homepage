@@ -40,7 +40,7 @@ class MainItem extends React.Component {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         onClick={this.handleClick}
-                        className={`flex flex-col items-center justify-between w-[120px] h-36 border-black border rounded-md m-2 p-2 cursor-move ${
+                        className={`flex  flex-col items-center justify-between w-[120px] h-36 border-black border rounded-md m-2 p-2 cursor-move ${
                             snapshot.isDragging && "dragging"
                         }`}
                     >
