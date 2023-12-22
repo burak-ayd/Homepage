@@ -5,6 +5,10 @@ import { useTheme } from "~/stores/app/hooks";
 import { useModal } from "~/stores/modal/hooks";
 import Modal from "~/modal";
 import MainPanel from "~/components/mainPanel";
+
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 export default function Home() {
     const theme = useTheme();
     const { colorScheme } = useColorScheme();
@@ -19,10 +23,12 @@ export default function Home() {
         }
     }, [theme, colorScheme]);
     return (
-        <div>
-            {modal && <Modal />}
-            <Header />
-            <MainPanel />
-        </div>
+        <DndProvider backend={HTML5Backend}>
+            <div>
+                {modal && <Modal />}
+                <Header />
+                <MainPanel />
+            </div>
+        </DndProvider>
     );
 }
