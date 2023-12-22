@@ -1,7 +1,6 @@
-import MainItem from "./item";
-import { useState } from "react";
-
-const MainPanel = () => {
+import { useState, useEffect } from "react";
+import GridLayout from "react-grid-layout";
+const MainItem = () => {
     const bookmarksData = [
         {
             name: "Google",
@@ -394,37 +393,60 @@ const MainPanel = () => {
             id: "65",
         },
     ];
+    const [layout, setLayout] = useState([]);
 
-    const [bookmarks, setBookmarks] = useState(bookmarksData);
+    useEffect(() => {
+        // Boş olan yerleri dolduracak layout'u oluştur
+        const newLayout = bookmarksData.map((bookmark, index) => ({
+            i: `${bookmark.id}-${bookmark.name}`,
+            x: index % 13,
+            y: Math.floor(index / 13) * 1,
+            w: 1,
+            h: 4,
+        }));
+        setLayout(newLayout);
+        console.log("TEST ", newLayout);
+    }, []);
 
-    const moveBookmark = (fromIndex, toIndex) => {
-        const updatedBookmarks = [...bookmarks];
-        const [movedItem] = updatedBookmarks.splice(fromIndex, 1);
-        updatedBookmarks.splice(toIndex, 0, movedItem);
-        setBookmarks(updatedBookmarks);
+    const onLayoutChange = (newLayout) => {
+        setLayout(newLayout);
+        console.log(newLayout);
     };
 
     return (
-        <div className="flex flex-wrap items-center justify-start w-full h-full">
-            <div
-                style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(13, minmax(100px, 1fr))",
-                    gap: "16px",
-                    padding: "16px",
-                }}
-            >
-                {bookmarks.map((bookmark, index) => (
-                    <MainItem
-                        key={bookmark.id}
-                        bookmark={bookmark}
-                        index={index}
-                        moveBookmark={moveBookmark}
-                    />
-                ))}
-            </div>
-        </div>
+        <GridLayout
+            className="layout"
+            layout={layout}
+            cols={13}
+            rowHeight={30}
+            width={window.innerWidth}
+            onLayoutChange={onLayoutChange}
+            maxRows={5}
+            maxCols={13}
+            style={{
+                margin: "2px",
+                padding: "2px",
+                display: "flex",
+            }}
+        >
+            {bookmarksData.map((bookmark) => (
+                <div key={`${bookmark.id}-${bookmark.name}`} className="">
+                    <a
+                        className="flex flex-col items-center justify-between border-black border rounded-md w-full h-full"
+                        // href={bookmark.url}
+                        rel="noopener noreferrer"
+                    >
+                        <img
+                            src={bookmark.icon}
+                            className="w-20 h-20"
+                            alt={bookmark.name}
+                        />
+                        <p>{bookmark.name}</p>
+                    </a>
+                </div>
+            ))}
+        </GridLayout>
     );
 };
 
-export default MainPanel;
+export default MainItem;
