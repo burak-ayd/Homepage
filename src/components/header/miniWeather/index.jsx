@@ -75,9 +75,10 @@ export default function Weather() {
             // Farkı saniyeye çevir
 
             const diffSecond = Math.round(diff / 1000);
+            // console.log("targetDateObject", targetDateObject);
             // console.log("diffSecond", diffSecond);
 
-            if (diffSecond === 900) {
+            if (diffSecond >= 900) {
                 setFetching(true);
             } else {
                 setFetching(false);
