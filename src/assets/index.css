@@ -15,7 +15,3 @@ body {
 body.dark {
     @apply bg-zinc-800
 }
-
-.hovered{
-    @apply bg-zinc-100
-}

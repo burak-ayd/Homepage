@@ -6,6 +6,7 @@ const initialState = {
     language: "tr",
     settingPage: "general",
     searchEngine: localStorage.getItem("searchEngine") || { value: "Google" },
+    background_image: localStorage.getItem("background_image") || "",
 };
 
 const app = createSlice({
@@ -33,6 +34,11 @@ const app = createSlice({
                 JSON.stringify(action.payload)
             );
         },
+        _setBackgroundImage(state, action) {
+            state.background_image = action.payload;
+            localStorage.setItem("background_image", action.payload);
+            localStorage.setItem("theme", "custom");
+        },
     },
 });
 
@@ -42,5 +48,6 @@ export const {
     _setSidebarVisibility,
     _setSettingPage,
     _setSearchEngine,
+    _setBackgroundImage,
 } = app.actions;
 export default app.reducer;
