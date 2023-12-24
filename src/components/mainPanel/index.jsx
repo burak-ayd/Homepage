@@ -1,5 +1,4 @@
-import MainItem from "./item";
-import { useState } from "react";
+import MainItem from "./item/index";
 
 const MainPanel = () => {
     const bookmarksData = [
@@ -90,7 +89,7 @@ const MainPanel = () => {
         {
             name: "WhatsApp",
             url: "https://www.whatsapp.com",
-            icon: "https://www.whatsapp.com/favicon.ico",
+            icon: "https://static.whatsapp.net/rsrc.php/v3/yz/r/ujTY9i_Jhs1.png",
             id: "15",
         },
         {
@@ -168,7 +167,7 @@ const MainPanel = () => {
         {
             name: "Sözcü",
             url: "https://www.sozcu.com.tr",
-            icon: "https://www.sozcu.com.tr/favicon.ico",
+            icon: "https://i01.sozcucdn.com/wp-content/themes/Sozcu_V4/assets/images/favicon.png",
             id: "28",
         },
         {
@@ -186,7 +185,7 @@ const MainPanel = () => {
         {
             name: "Google News",
             url: "https://news.google.com",
-            icon: "https://news.google.com/favicon.ico",
+            icon: "https://lh3.googleusercontent.com/-DR60l-K8vnyi99NZovm9HlXyZwQ85GMDxiwJWzoasZYCUrPuUM_P_4Rb7ei03j-0nRs0c4F=w32",
             id: "31",
         },
         {
@@ -378,7 +377,7 @@ const MainPanel = () => {
         {
             name: "WhatsApp",
             url: "https://www.whatsapp.com",
-            icon: "https://www.whatsapp.com/favicon.ico",
+            icon: "https://static.whatsapp.net/rsrc.php/v3/yz/r/ujTY9i_Jhs1.png",
             id: "63",
         },
         {
@@ -393,33 +392,167 @@ const MainPanel = () => {
             icon: "https://www.adobe.com/favicon.ico",
             id: "65",
         },
+        {
+            name: "Google",
+            url: "https://www.google.com",
+            icon: "https://www.google.com/favicon.ico",
+            id: 66,
+        },
+        {
+            name: "Facebook",
+            url: "https://www.facebook.com",
+            icon: "https://www.facebook.com/favicon.ico",
+            id: 67,
+        },
+        {
+            name: "YouTube",
+            url: "https://www.youtube.com",
+            icon: "https://www.youtube.com/favicon.ico",
+            id: 68,
+        },
+        {
+            name: "Amazon",
+            url: "https://www.amazon.com",
+            icon: "https://www.amazon.com/favicon.ico",
+            id: 69,
+        },
+        {
+            name: "Twitter",
+            url: "https://www.twitter.com",
+            icon: "https://www.twitter.com/favicon.ico",
+            id: 70,
+        },
+        {
+            name: "Instagram",
+            url: "https://www.instagram.com",
+            icon: "https://www.instagram.com/favicon.ico",
+            id: 71,
+        },
+        {
+            name: "LinkedIn",
+            url: "https://www.linkedin.com",
+            icon: "https://www.linkedin.com/favicon.ico",
+            id: 72,
+        },
+        {
+            name: "Netflix",
+            url: "https://www.netflix.com",
+            icon: "https://www.netflix.com/favicon.ico",
+            id: 73,
+        },
+        {
+            name: "Pinterest",
+            url: "https://www.pinterest.com",
+            icon: "https://www.pinterest.com/favicon.ico",
+            id: 74,
+        },
+        {
+            name: "Tumblr",
+            url: "https://www.tumblr.com",
+            icon: "https://www.tumblr.com/favicon.ico",
+            id: 75,
+        },
+        {
+            name: "Etsy",
+            url: "https://www.etsy.com",
+            icon: "https://www.etsy.com/favicon.ico",
+            id: 76,
+        },
+        {
+            name: "Wikipedia",
+            url: "https://www.wikipedia.org",
+            icon: "https://www.wikipedia.org/favicon.ico",
+            id: 77,
+        },
+        {
+            name: "Reddit",
+            url: "https://www.reddit.com",
+            icon: "https://www.reddit.com/favicon.ico",
+            id: 78,
+        },
+        {
+            name: "Yahoo",
+            url: "https://www.yahoo.com",
+            icon: "https://www.yahoo.com/favicon.ico",
+            id: 79,
+        },
+        {
+            name: "Bing",
+            url: "https://www.bing.com",
+            icon: "https://www.bing.com/favicon.ico",
+            id: 80,
+        },
+        {
+            name: "GitHub",
+            url: "https://www.github.com",
+            icon: "https://www.github.com/favicon.ico",
+            id: 81,
+        },
+        {
+            name: "Stack Overflow",
+            url: "https://www.stackoverflow.com",
+            icon: "https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196",
+            id: 82,
+        },
+        {
+            name: "Medium",
+            url: "https://www.medium.com",
+            icon: "https://www.medium.com/favicon.ico",
+            id: 83,
+        },
+        {
+            name: "Twitch",
+            url: "https://www.twitch.tv",
+            icon: "https://www.twitch.tv/favicon.ico",
+            id: 84,
+        },
+        {
+            name: "IMDb",
+            url: "https://www.imdb.com",
+            icon: "https://www.imdb.com/favicon.ico",
+            id: 85,
+        },
+        {
+            name: "CNN",
+            url: "https://www.cnn.com",
+            icon: "https://www.cnn.com/favicon.ico",
+            id: 86,
+        },
+        {
+            name: "BBC",
+            url: "https://www.bbc.com",
+            icon: "https://www.bbc.com/favicon.ico",
+            id: 87,
+        },
+        {
+            name: "Ebay",
+            url: "https://www.ebay.com",
+            icon: "https://www.ebay.com/favicon.ico",
+            id: 88,
+        },
+        {
+            name: "PayPal",
+            url: "https://www.paypal.com",
+            icon: "https://www.paypal.com/favicon.ico",
+            id: 89,
+        },
+        {
+            name: "PayPal",
+            url: "https://www.paypal.com",
+            icon: "https://www.paypal.com/favicon.ico",
+            id: 90,
+        },
     ];
 
-    const [bookmarks, setBookmarks] = useState(bookmarksData);
-
-    const moveBookmark = (fromIndex, toIndex) => {
-        const updatedBookmarks = [...bookmarks];
-        const [movedItem] = updatedBookmarks.splice(fromIndex, 1);
-        updatedBookmarks.splice(toIndex, 0, movedItem);
-        setBookmarks(updatedBookmarks);
-    };
-
     return (
-        <div className="flex flex-wrap items-center justify-start w-full h-full">
-            <div
-                style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(13, minmax(100px, 1fr))",
-                    gap: "16px",
-                    padding: "16px",
-                }}
-            >
-                {bookmarks.map((bookmark, index) => (
+        <div className="block p-5 w-full h-full overflow-hidden box-border z-10">
+            <div className="draggable grid grid-cols-15 grid-rows-6 w-full h-full">
+                {bookmarksData.map((item) => (
                     <MainItem
-                        key={bookmark.id}
-                        bookmark={bookmark}
-                        index={index}
-                        moveBookmark={moveBookmark}
+                        name={item.name}
+                        key={item.id}
+                        url={item.url}
+                        icon={item.icon}
                     />
                 ))}
             </div>

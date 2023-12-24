@@ -1,64 +1,26 @@
 import PropTypes from "prop-types";
-import { useDrag, useDrop } from "react-dnd";
-
-const MainItem = ({ bookmark, index, moveBookmark }) => {
-    const [{ isDragging }, drag] = useDrag({
-        type: "ITEM",
-        item: { index },
-        collect: (monitor) => ({
-            isDragging: !!monitor.isDragging(),
-        }),
-    });
-    // const [, drag] = useDrag({
-    //     type: "ITEM",
-    //     item: { index },
-    // });
-
-    const [, drop] = useDrop({
-        accept: "ITEM",
-        hover: (draggedItem) => {
-            if (draggedItem.index !== index) {
-                moveBookmark(draggedItem.index, index);
-                draggedItem.index = index;
-            }
-        },
-    });
-
+const MainItem = ({ name, url, icon, id }) => {
     return (
-        <div
-            ref={(node) => drag(drop(node))}
-            style={{
-                opacity: isDragging ? 0.5 : 1,
-                cursor: "move",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                padding: "10px",
-                backgroundColor: "#e0e0e0",
-                borderRadius: "8px",
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                marginBottom: "8px",
-            }}
+        <a
+            className="bookmark-item my-1 last:mb-0  w-[125px] h-[125px] hover:bg-[#3d3d3d6b] text-ellipsis"
+            href={url}
         >
-            <a
-                href={bookmark.url}
-                target="_blank"
-                rel="noreferrer"
-                className="flex flex-col items-center justify-center p-2 bg-gray-200 rounded-md shadow-md hover:bg-gray-300"
-            >
-                <img
-                    src={bookmark.icon}
-                    alt={bookmark.name}
-                    className="w-10 h-10"
-                />
-                <span className="text-xs">{bookmark.name}</span>
-            </a>
-        </div>
+            <div className="app-bookmark flex flex-col overflow-hidden items-center justify-center relative w-full h-full">
+                <div className="icon-wrapper flex items-center justify-center w-12 h-12 flex-shrink-0 rounded-2xl overflow-hidde">
+                    <div
+                        className="icon flex justify-center bg-cover bg-center w-full h-full"
+                        style={{ backgroundImage: `url(${icon})` }}
+                    ></div>
+                </div>
+                <div className="title text-center mt-[10%]">{name}</div>
+            </div>
+        </a>
     );
 };
-
 MainItem.propTypes = {
-    bookmark: PropTypes.object,
+    name: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
 };
-
 export default MainItem;
