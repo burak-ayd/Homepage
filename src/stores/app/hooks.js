@@ -8,3 +8,5 @@ export const useSidebarVisibility = () =>
     useSelector((state) => state.app.sidebarVisibility);
 export const useSearchEngine = () =>
     useSelector((state) => state.app.searchEngine);
+export const useBackgroundImage = () =>
+    useSelector((state) => state.app.background_image);

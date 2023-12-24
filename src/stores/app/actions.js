@@ -5,6 +5,7 @@ import {
     _setSidebarVisibility,
     _setSettingPage,
     _setSearchEngine,
+    _setBackgroundImage,
 } from ".";
 
 export const setTheme = (theme) => store.dispatch(_setTheme(theme));
@@ -14,3 +15,5 @@ export const setSidebarVisibility = (visibility) =>
     store.dispatch(_setSidebarVisibility(visibility));
 export const setSearchEngine = (engine) =>
     store.dispatch(_setSearchEngine(engine));
+export const setBackgroundImage = (image) =>
+    store.dispatch(_setBackgroundImage(image));
