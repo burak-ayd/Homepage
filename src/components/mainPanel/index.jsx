@@ -1,4 +1,48 @@
 import MainItem from "./item/index";
+import { DndContext, closestCenter } from "@dnd-kit/core";
+import { SortableContext } from "@dnd-kit/sortable";
+import { useSortable } from "@dnd-kit/sortable/dist";
+import { CSS } from "@dnd-kit/utilities";
+import { useState } from "react";
+import PropTypes from "prop-types";
+import { rectSwappingStrategy } from "@dnd-kit/sortable/dist";
+
+const SortableBookmark = ({ item }) => {
+    const { attributes, listeners, setNodeRef, transform, transition } =
+        useSortable({
+            id: item.id,
+            transition: {
+                duration: 150, // milliseconds
+                easing: "cubic-bezier(0.25, 1, 0.5, 1)",
+            },
+            transform: ({ translate }) => {
+                return `translate3d(${translate.x}px, ${
+                    translate.y
+                }px, 0) scale(${translate.scale ?? 1})`;
+            },
+        });
+    const style = {
+        transform: CSS.Translate.toString(transform),
+        // Adjust the duration as needed
+        transition,
+    };
+    console.log(style);
+    return (
+        <div ref={setNodeRef} {...listeners} {...attributes} style={style}>
+            <MainItem
+                key={item.id}
+                name={item.name}
+                url={item.url}
+                icon={item.icon}
+                id={item.id}
+            />
+        </div>
+    );
+};
+
+SortableBookmark.propTypes = {
+    item: PropTypes.object,
+};
 
 const MainPanel = () => {
     const bookmarksData = [
@@ -544,18 +588,43 @@ const MainPanel = () => {
         },
     ];
 
+    const [bookmarks, setBookmarks] = useState(bookmarksData);
+
+    const onDragEnd = (event) => {
+        const { active, over } = event;
+
+        if (active.id !== over.id) {
+            const oldIndex = bookmarks.findIndex(
+                (item) => item.id === active.id
+            );
+            const newIndex = bookmarks.findIndex((item) => item.id === over.id);
+
+            const newBookmarksData = [...bookmarks];
+
+            newBookmarksData.splice(oldIndex, 1);
+            newBookmarksData.splice(newIndex, 0, bookmarks[oldIndex]);
+
+            setBookmarks(newBookmarksData);
+        }
+    };
+
     return (
         <div className="block p-5 w-full h-full overflow-hidden box-border z-10">
-            <div className="draggable grid grid-cols-15 grid-rows-6 w-full h-full">
-                {bookmarksData.map((item) => (
-                    <MainItem
-                        name={item.name}
-                        key={item.id}
-                        url={item.url}
-                        icon={item.icon}
-                    />
-                ))}
-            </div>
+            <DndContext
+                collisionDetection={closestCenter}
+                onDragEnd={onDragEnd}
+            >
+                <SortableContext
+                    items={bookmarks.map((item) => item.id)}
+                    strategy={rectSwappingStrategy}
+                >
+                    <div className="draggable grid grid-cols-15 grid-rows-6 last:mb-0 w-full h-full">
+                        {bookmarks.map((item) => (
+                            <SortableBookmark key={item.id} item={item} />
+                        ))}
+                    </div>
+                </SortableContext>
+            </DndContext>
         </div>
     );
 };

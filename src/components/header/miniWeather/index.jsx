@@ -101,6 +101,9 @@ export default function Weather() {
                         description: res.data.weather[0].description,
                         icon: `http://openweathermap.org/img/wn/${res.data.weather[0].icon}.png`,
                         date: date,
+                        weather_date: dayjs
+                            .unix(res.data.dt)
+                            .format("DD.MM.YYYY HH:mm:ss"),
                     };
                     setWeather(weather);
                 })
@@ -152,13 +155,24 @@ export default function Weather() {
         <>
             {getWeatherData && (
                 <div className="flex justify-between items-center gap-1.5">
-                    <img
-                        className="w-full h-full object-cover"
-                        src={getWeatherData.icon}
-                        alt={getWeatherData.description}
-                    />
-                    <span>{getWeatherData.temp}</span>
-                    <span className="font-semibold">{getWeatherData.city}</span>
+                    <div className="flex flex-row items-center justify-center">
+                        <img
+                            className="w-full h-full object-cover"
+                            src={getWeatherData.icon}
+                            alt={getWeatherData.description}
+                        />
+                        <span className="text-xl font-medium">
+                            {getWeatherData.temp}°C
+                        </span>
+                    </div>
+                    <div className="flex flex-col items-center justify-center">
+                        <span className="font-semibold text-xl">
+                            {getWeatherData.city}
+                        </span>
+                        <span className="font-extralight text-xs">
+                            {getWeatherData.weather_date}
+                        </span>
+                    </div>
                 </div>
             )}
         </>

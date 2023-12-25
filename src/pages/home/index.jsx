@@ -7,9 +7,6 @@ import { useModal } from "~/stores/modal/hooks";
 import Modal from "~/modal";
 import MainPanel from "~/components/mainPanel";
 
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-
 export default function Home() {
     const theme = useTheme();
     const backgroundImage = useBackgroundImage();
@@ -23,6 +20,7 @@ export default function Home() {
         console.log("backgroundImage", backgroundImage);
         if (backgroundImage) {
             document.body.style.backgroundImage = `url(${backgroundImage})`;
+            document.body.className = "background";
         } else {
             document.body.style.backgroundImage = "";
             if (theme === "default") {
@@ -33,12 +31,10 @@ export default function Home() {
         }
     }, [theme, colorScheme, backgroundImage]);
     return (
-        <DndProvider backend={HTML5Backend}>
-            <>
-                {modal && <Modal />}
-                <Header />
-                <MainPanel />
-            </>
-        </DndProvider>
+        <div className="Home background:bg-blue-gray-50/20">
+            {modal && <Modal />}
+            <Header />
+            <MainPanel />
+        </div>
     );
 }
