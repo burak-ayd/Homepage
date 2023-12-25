@@ -38,5 +38,9 @@ export default withMT({
             },
         },
     },
-    plugins: [],
+    plugins: [
+        require("tailwindcss/plugin")(({ addVariant }) => {
+            addVariant("background", ":is(.background &)");
+        }),
+    ],
 });

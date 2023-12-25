@@ -37,7 +37,7 @@ const app = createSlice({
         _setBackgroundImage(state, action) {
             state.background_image = action.payload;
             localStorage.setItem("background_image", action.payload);
-            localStorage.setItem("theme", "custom");
+            localStorage.setItem("theme", "background");
         },
     },
 });
