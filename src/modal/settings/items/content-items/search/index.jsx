@@ -52,7 +52,7 @@ export default function SearchContent() {
             setSearchEngine(engine);
         }
     };
-    console.log("selectedEngine", selectedEngine);
+    // console.log("selectedEngine", selectedEngine);
     return (
         <>
             <div className="flex items-center justify-between w-full">

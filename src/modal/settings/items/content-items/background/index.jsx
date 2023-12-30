@@ -59,9 +59,7 @@ export default function BackgroundContent() {
                             <Input
                                 type="text"
                                 label="Add image Url"
-                                value={
-                                    backgroundImage && bgImage ? bgImage : ""
-                                }
+                                value={bgImage && bgImage ? bgImage : ""}
                                 color="white"
                                 size="lg"
                                 onChange={({ target }) => {

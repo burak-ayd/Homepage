@@ -23,7 +23,7 @@ export default function Search() {
         setSearchContent(target.value);
     };
     return (
-        <div className="relative flex max-w-[600px] w-full items-center justify-center p-0">
+        <div className="relative flex max-w-[600px] w-full items-center justify-center">
             {/* <input
                 type="text"
                 className="w-full h-10 rounded bg-white/40 dark:bg-zinc-700/50 border border-zinc-300 dark:border-zinc-700 focus:border-zinc-500 dark:focus:border-zinc-500 dark:text-white backdrop-blur px-4 outline-none text-sm font-semibold"
@@ -34,7 +34,8 @@ export default function Search() {
                 label="Ara"
                 onChange={onChange}
                 value={searchContent}
-                className="pr-16"
+                color="white"
+                className="pr-16 dark:text-white"
                 containerProps={{
                     className: "min-w-0",
                 }}
@@ -42,7 +43,7 @@ export default function Search() {
             <Button
                 size="sm"
                 color={searchContent ? "gray" : "blue-gray"}
-                className="!absolute right-1 top-1 rounded justify-center"
+                className="!absolute right-1 top-1 rounded justify-center dark:bg-zinc-700"
                 onClick={() => {
                     (window.location.href = `${engine.url}${searchContent}`),
                         "_blank";

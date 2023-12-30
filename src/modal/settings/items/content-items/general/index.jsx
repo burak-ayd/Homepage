@@ -37,19 +37,28 @@ export default function GeneralContent() {
                     >
                         <Option
                             value="Sistem Teması"
-                            onClick={() => setTheme("default")}
+                            onClick={() => {
+                                setTheme("default");
+                                setSelectedTheme("Sistem Teması");
+                            }}
                         >
                             Sistem Teması
                         </Option>
                         <Option
                             value="Açık Tema"
-                            onClick={() => setTheme("light")}
+                            onClick={() => {
+                                setTheme("light");
+                                setSelectedTheme("Açık Tema");
+                            }}
                         >
                             Açık Tema
                         </Option>
                         <Option
                             value="Koyu Tema"
-                            onClick={() => setTheme("dark")}
+                            onClick={() => {
+                                setTheme("dark");
+                                setSelectedTheme("Koyu Tema");
+                            }}
                         >
                             Koyu Tema
                         </Option>

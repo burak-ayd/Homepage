@@ -15,12 +15,9 @@ export default function Home() {
     const modal = useModal();
 
     useEffect(() => {
-        console.log("theme", theme);
-        console.log("colorScheme", colorScheme);
-        console.log("backgroundImage", backgroundImage);
         if (backgroundImage) {
             document.body.style.backgroundImage = `url(${backgroundImage})`;
-            document.body.className = "background";
+            document.body.className = "background bg-cover bg-center";
         } else {
             document.body.style.backgroundImage = "";
             if (theme === "default") {
@@ -31,7 +28,7 @@ export default function Home() {
         }
     }, [theme, colorScheme, backgroundImage]);
     return (
-        <div className="Home background:bg-blue-gray-50/20">
+        <div className="Home">
             {modal && <Modal />}
             <Header />
             <MainPanel />
