@@ -15,3 +15,7 @@ body {
 body.dark {
     @apply bg-zinc-800
 }
+
+html {
+    overflow: hidden;
+}

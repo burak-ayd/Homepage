@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 const MainItem = ({ name, url, icon, id }) => {
     return (
         <a
-            className="bookmark-item my-1  w-32 h-36 hover:bg-[#3d3d3d6b] "
+            className="bookmark-item block w-32 h-36 hover:bg-[#3d3d3d6b] overflow-hidden"
             href={url}
+            key={id}
         >
             <div className="app-bookmark flex flex-col overflow-hidden items-center justify-center relative w-full h-full">
                 <div className="icon-wrapper flex items-center justify-center flex-shrink-0 rounded-2xl overflow-hidden">
@@ -17,7 +18,7 @@ const MainItem = ({ name, url, icon, id }) => {
                         />
                     </div>
                 </div>
-                <div className="title text-black text-center mt-[10%] background:text-white background:text-base text-ellipsis">
+                <div className="title text-black text-center mt-[10%] background:text-black dark:text-white dark:text-base background:text-base text-ellipsis">
                     {name}
                 </div>
             </div>
@@ -28,6 +29,6 @@ MainItem.propTypes = {
     name: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
-    id: PropTypes.number,
+    id: PropTypes.string.isRequired,
 };
 export default MainItem;

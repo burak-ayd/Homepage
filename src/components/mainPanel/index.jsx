@@ -26,7 +26,6 @@ const SortableBookmark = ({ item }) => {
         // Adjust the duration as needed
         transition,
     };
-    console.log(style);
     return (
         <div ref={setNodeRef} {...listeners} {...attributes} style={style}>
             <MainItem
@@ -34,7 +33,7 @@ const SortableBookmark = ({ item }) => {
                 name={item.name}
                 url={item.url}
                 icon={item.icon}
-                id={item.id}
+                id={item.id.toString()}
             />
         </div>
     );
@@ -609,7 +608,7 @@ const MainPanel = () => {
     };
 
     return (
-        <div className="block p-5 w-full h-full overflow-hidden box-border z-10">
+        <div className="block w-full h-full px-1 box-border z-10 ">
             <DndContext
                 collisionDetection={closestCenter}
                 onDragEnd={onDragEnd}
@@ -618,7 +617,7 @@ const MainPanel = () => {
                     items={bookmarks.map((item) => item.id)}
                     strategy={rectSwappingStrategy}
                 >
-                    <div className="draggable grid grid-cols-15 grid-rows-6 last:mb-0 w-full h-full">
+                    <div className="draggable grid grid-cols-15 grid-rows-6 w-full h-full ">
                         {bookmarks.map((item) => (
                             <SortableBookmark key={item.id} item={item} />
                         ))}
