@@ -7,6 +7,7 @@ const initialState = {
     settingPage: "general",
     searchEngine: localStorage.getItem("searchEngine") || { value: "Google" },
     background_image: localStorage.getItem("background_image") || "",
+    setEdit: false,
 };
 
 const app = createSlice({
@@ -39,6 +40,9 @@ const app = createSlice({
             localStorage.setItem("background_image", action.payload);
             localStorage.setItem("theme", "background");
         },
+        _setEdit(state, action) {
+            state.setEdit = action.payload;
+        },
     },
 });
 
@@ -49,5 +53,6 @@ export const {
     _setSettingPage,
     _setSearchEngine,
     _setBackgroundImage,
+    _setEdit,
 } = app.actions;
 export default app.reducer;
