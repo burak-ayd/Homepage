@@ -6,6 +6,7 @@ import {
     _setSettingPage,
     _setSearchEngine,
     _setBackgroundImage,
+    _setEdit,
 } from ".";
 
 export const setTheme = (theme) => store.dispatch(_setTheme(theme));
@@ -17,3 +18,4 @@ export const setSearchEngine = (engine) =>
     store.dispatch(_setSearchEngine(engine));
 export const setBackgroundImage = (image) =>
     store.dispatch(_setBackgroundImage(image));
+export const setEdit = (edit) => store.dispatch(_setEdit(edit));

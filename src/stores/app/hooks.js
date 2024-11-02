@@ -10,3 +10,4 @@ export const useSearchEngine = () =>
     useSelector((state) => state.app.searchEngine);
 export const useBackgroundImage = () =>
     useSelector((state) => state.app.background_image);
+export const useSetEdit = () => useSelector((state) => state.app.setEdit);

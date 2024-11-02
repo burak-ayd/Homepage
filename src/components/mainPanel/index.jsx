@@ -14,8 +14,13 @@ import { CSS } from "@dnd-kit/utilities";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { bookmarksData } from "~/utils/data";
+import { useSetEdit } from "~/stores/app/hooks";
+import { useEffect } from "react";
+import classNames from "classnames";
 
 const SortableBookmark = ({ item }) => {
+    const useEdit = useSetEdit();
+
     const {
         isDragging,
         attributes,
@@ -26,15 +31,23 @@ const SortableBookmark = ({ item }) => {
     } = useSortable({
         id: item.id,
     });
+
     const style = {
-        transform: CSS.Translate.toString(transform),
-        // Adjust the duration as needed
-        transition,
+        transform: isDragging ? CSS.Translate.toString(transform) : null,
+        transition: isDragging ? transition : null,
         zIndex: isDragging ? 1 : 0,
         scale: isDragging ? 1.05 : 1,
+        opacity: 1,
     };
+
     return (
-        <div ref={setNodeRef} {...listeners} {...attributes} style={style}>
+        <div
+            ref={setNodeRef}
+            {...listeners}
+            {...attributes}
+            style={style}
+            className="!opacity-100"
+        >
             <MainItem
                 key={item.id}
                 name={item.name}
@@ -51,11 +64,20 @@ SortableBookmark.propTypes = {
 };
 
 const MainPanel = () => {
+    const useEdit = useSetEdit();
+
+    const [isEditing, setSetEdit] = useState(useEdit);
+
+    useEffect(() => {
+        setSetEdit(useEdit);
+    }, [useEdit]);
+
     const [bookmarks, setBookmarks] = useState(bookmarksData);
     const [isDragging, setIsDragging] = useState(false);
     const [activeId, setActiveId] = useState(null);
 
     const onDragEnd = (event) => {
+        if (!isEditing) return;
         setIsDragging(false);
         const { active, over } = event;
         if (active.id !== over.id) {
@@ -91,27 +113,38 @@ const MainPanel = () => {
     const sensors = useSensors(mouseSensor, keyboardSensor);
 
     console.log("isDragging", isDragging, "activeId", activeId);
+    console.log("isEditing", isEditing);
 
     return (
         <div className="block w-full h-full px-1 box-border z-10 ">
             <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
-                onDragEnd={onDragEnd}
+                onDragEnd={isEditing ? onDragEnd : null}
                 onDragStart={(e) => {
-                    setIsDragging(true);
-                    setActiveId(e.active.id);
+                    if (isEditing) {
+                        setIsDragging(true);
+                        setActiveId(e.active.id);
+                    }
                 }}
             >
                 <SortableContext items={bookmarks.map((item) => item.id)}>
-                    <div className="draggable grid grid-cols-15 grid-rows-6 w-full h-full">
+                    <div
+                        className={classNames(
+                            "grid grid-cols-15 grid-rows-6 w-full h-full",
+                            {
+                                draggable: isEditing,
+                            }
+                        )}
+                    >
                         {bookmarks.map((item) => (
                             <SortableBookmark key={item.id} item={item} />
                         ))}
                     </div>
                 </SortableContext>
                 <DragOverlay>
-                    {activeId &&
+                    {isEditing &&
+                        activeId &&
                         bookmarks.find((item) => item.id === activeId) && (
                             <div className="draggable grid grid-cols-15 grid-rows-6 w-full h-full scale-105">
                                 <SortableBookmark
